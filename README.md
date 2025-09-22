@@ -10,7 +10,9 @@ go install github.com/rakyll/hey@latest
 which hey
 
 # RUN
-cat payloads.txt | head -n 5 | xargs -I{} -P5 ~/go/bin/hey -n 1 -c 1 \
+# 🔹 -n 10 = total 10 request
+# 🔹 -c 10 = semua 10 request dikirim simultaneously (bareng)
+cat payloads.txt | head -n 5 | xargs -I{} -P5 ~/go/bin/hey -n 10 -c 10 \
   -m POST \
   -H "Content-Type: application/json" \
   -d '{}' \
