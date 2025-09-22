@@ -44,4 +44,16 @@ Details (average, fastest, slowest):
 
 Status code distribution:
   [400]	1 responses
+
+
+# simultant with different headers and payload
+# path ke hey (ganti ~/go/bin/hey kalau butuh)
+HEY=~/go/bin/hey
+
+cat header_payloads.txt | xargs -I{} -P5 sh -c '
+  line="{}"
+  header=$(printf "%s" "$line" | awk -F"||" "{print \$1}")
+  body=$(printf "%s" "$line" | awk -F"||" "{print \$2}")
+  '"$HEY"' -n 1 -c 1 -m POST -H "$header" -H "Content-Type: application/json" -d "$body" https://reqres.in/api/users
+'
 ```
